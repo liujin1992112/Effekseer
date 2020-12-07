@@ -737,23 +737,7 @@ protected:
 				vm.Pos = ToStruct(pos);
 				vr.Pos = ToStruct(-R * vr.Pos.X + pos);
 
-				if (IsDistortionVertex<VERTEX>())
-				{
-					const auto binormalVector = ToStruct(axis);
-					vl.SetBinormal(binormalVector);
-					vm.SetBinormal(binormalVector);
-					vr.SetBinormal(binormalVector);
-
-					::Effekseer::SIMD::Vec3f tangent = vl.Pos - vr.Pos;
-					tangent.Normalize();
-
-					const auto tangentVector = ToStruct(tangent);
-
-					vl.SetTangent(tangentVector);
-					vm.SetTangent(tangentVector);
-					vr.SetTangent(tangentVector);
-				}
-				else if (IsDynamicVertex<VERTEX>() || IsLightingVertex<VERTEX>())
+				if (IsDynamicVertex<VERTEX>() || IsLightingVertex<VERTEX>() || IsDistortionVertex<VERTEX>())
 				{
 					::Effekseer::SIMD::Vec3f tangent = SafeNormalize(Effekseer::SIMD::Vec3f(vl.Pos - vr.Pos));
 					Effekseer::SIMD::Vec3f normal = SafeNormalize(Effekseer::SIMD::Vec3f::Cross(tangent, axis));

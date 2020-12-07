@@ -627,69 +627,7 @@ protected:
 		AssignUVs<VERTEX, 6>(parameter, verteies);
 
 		// Apply distortion
-		if (IsDistortionVertex<VERTEX>())
-		{
-			StrideView<VERTEX> vs_(m_ringBufferData, stride_, vertexCount_);
-			Effekseer::SIMD::Vec3f axisBefore;
-
-			for (size_t i = 0; i < (instances.size() - 1) * parameter.SplineDivision + 1; i++)
-			{
-				bool isFirst_ = (i == 0);
-				bool isLast_ = (i == ((instances.size() - 1) * parameter.SplineDivision));
-
-				Effekseer::SIMD::Vec3f axis;
-
-				if (isFirst_)
-				{
-					axis = (vs_[3].Pos - vs_[1].Pos);
-					axis = SafeNormalize(axis);
-					axisBefore = axis;
-				}
-				else if (isLast_)
-				{
-					axis = axisBefore;
-				}
-				else
-				{
-					Effekseer::SIMD::Vec3f axisOld = axisBefore;
-					axis = (vs_[5].Pos - vs_[3].Pos);
-					axis = SafeNormalize(axis);
-					axisBefore = axis;
-
-					axis = (axisBefore + axisOld) / 2.0f;
-					axis = SafeNormalize(axis);
-				}
-
-				Effekseer::SIMD::Vec3f tangent = vs_[1].Pos - vs_[0].Pos;
-				tangent = tangent.Normalize();
-
-				if (isFirst_ || isLast_)
-				{
-					const auto binormalVector = ToStruct(axis);
-					const auto tangentVector = ToStruct(tangent);
-
-					for (int32_t j = 0; j < 2; j++)
-					{
-						vs_[j].SetBinormal(binormalVector);
-						vs_[j].SetTangent(tangentVector);
-					}
-					vs_ += 2;
-				}
-				else
-				{
-					const auto binormalVector = ToStruct(axis);
-					const auto tangentVector = ToStruct(tangent);
-
-					for (int32_t j = 0; j < 4; j++)
-					{
-						vs_[j].SetBinormal(binormalVector);
-						vs_[j].SetTangent(tangentVector);
-					}
-					vs_ += 4;
-				}
-			}
-		}
-		else if (IsDynamicVertex<VERTEX>() || IsLightingVertex<VERTEX>())
+		if (IsDynamicVertex<VERTEX>() || IsLightingVertex<VERTEX>() || IsDistortionVertex<VERTEX>())
 		{
 			StrideView<VERTEX> vs_(m_ringBufferData, stride_, vertexCount_);
 			Effekseer::SIMD::Vec3f axisBefore;

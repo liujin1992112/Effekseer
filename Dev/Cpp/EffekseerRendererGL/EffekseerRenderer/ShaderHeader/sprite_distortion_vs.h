@@ -55,6 +55,8 @@ VS_Output _main(VS_Input Input)
     vec3 worldBinormal = cross(worldNormal, worldTangent);
     vec4 localBinormal = vec4(Input.Pos.x + worldBinormal.x, Input.Pos.y + worldBinormal.y, Input.Pos.z + worldBinormal.z, 1.0);
     vec4 localTangent = vec4(Input.Pos.x + worldTangent.x, Input.Pos.y + worldTangent.y, Input.Pos.z + worldTangent.z, 1.0);
+    localBinormal = CBVS0.mCamera * localBinormal;
+    localTangent = CBVS0.mCamera * localTangent;
     vec4 cameraPos = CBVS0.mCamera * pos4;
     cameraPos /= vec4(cameraPos.w);
     localBinormal /= vec4(localBinormal.w);
@@ -151,6 +153,8 @@ VS_Output _main(VS_Input Input)
     vec3 worldBinormal = cross(worldNormal, worldTangent);
     vec4 localBinormal = vec4(Input.Pos.x + worldBinormal.x, Input.Pos.y + worldBinormal.y, Input.Pos.z + worldBinormal.z, 1.0);
     vec4 localTangent = vec4(Input.Pos.x + worldTangent.x, Input.Pos.y + worldTangent.y, Input.Pos.z + worldTangent.z, 1.0);
+    localBinormal *= CBVS0.mCamera;
+    localTangent *= CBVS0.mCamera;
     vec4 cameraPos = pos4 * CBVS0.mCamera;
     cameraPos /= vec4(cameraPos.w);
     localBinormal /= vec4(localBinormal.w);
@@ -244,6 +248,8 @@ VS_Output _main(VS_Input Input)
     vec3 worldBinormal = cross(worldNormal, worldTangent);
     vec4 localBinormal = vec4(Input.Pos.x + worldBinormal.x, Input.Pos.y + worldBinormal.y, Input.Pos.z + worldBinormal.z, 1.0);
     vec4 localTangent = vec4(Input.Pos.x + worldTangent.x, Input.Pos.y + worldTangent.y, Input.Pos.z + worldTangent.z, 1.0);
+    localBinormal = CBVS0.mCamera * localBinormal;
+    localTangent = CBVS0.mCamera * localTangent;
     vec4 cameraPos = CBVS0.mCamera * pos4;
     cameraPos /= vec4(cameraPos.w);
     localBinormal /= vec4(localBinormal.w);
@@ -337,6 +343,8 @@ VS_Output _main(VS_Input Input)
     vec3 worldBinormal = cross(worldNormal, worldTangent);
     vec4 localBinormal = vec4(Input.Pos.x + worldBinormal.x, Input.Pos.y + worldBinormal.y, Input.Pos.z + worldBinormal.z, 1.0);
     vec4 localTangent = vec4(Input.Pos.x + worldTangent.x, Input.Pos.y + worldTangent.y, Input.Pos.z + worldTangent.z, 1.0);
+    localBinormal *= CBVS0.mCamera;
+    localTangent *= CBVS0.mCamera;
     vec4 cameraPos = pos4 * CBVS0.mCamera;
     cameraPos /= vec4(cameraPos.w);
     localBinormal /= vec4(localBinormal.w);

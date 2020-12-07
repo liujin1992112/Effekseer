@@ -22,10 +22,10 @@ static const VS_Output _21 = { 0.0f.xxxx, 0.0f.xxxx, 0.0f.xx, 0.0f.xxxx, 0.0f.xx
 
 cbuffer VS_ConstantBuffer : register(b0)
 {
-    column_major float4x4 _89_mCamera : register(c0);
-    column_major float4x4 _89_mProj : register(c4);
-    float4 _89_mUVInversed : register(c8);
-    float4 _89_mflipbookParameter : register(c9);
+    column_major float4x4 _88_mCamera : register(c0);
+    column_major float4x4 _88_mProj : register(c4);
+    float4 _88_mUVInversed : register(c8);
+    float4 _88_mflipbookParameter : register(c9);
 };
 
 static const float4 gl_HalfPixel = 0.0f.xxxx;
@@ -72,22 +72,24 @@ VS_Output _main(VS_Input Input)
     float3 worldBinormal = cross(worldNormal, worldTangent);
     float4 localBinormal = float4(Input.Pos.x + worldBinormal.x, Input.Pos.y + worldBinormal.y, Input.Pos.z + worldBinormal.z, 1.0f);
     float4 localTangent = float4(Input.Pos.x + worldTangent.x, Input.Pos.y + worldTangent.y, Input.Pos.z + worldTangent.z, 1.0f);
-    float4 cameraPos = mul(_89_mCamera, pos4);
+    localBinormal = mul(_88_mCamera, localBinormal);
+    localTangent = mul(_88_mCamera, localTangent);
+    float4 cameraPos = mul(_88_mCamera, pos4);
     cameraPos /= cameraPos.w.xxxx;
     localBinormal /= localBinormal.w.xxxx;
     localTangent /= localTangent.w.xxxx;
     localBinormal = cameraPos + normalize(localBinormal - cameraPos);
     localTangent = cameraPos + normalize(localTangent - cameraPos);
-    Output.PosVS = mul(_89_mProj, cameraPos);
+    Output.PosVS = mul(_88_mProj, cameraPos);
     Output.PosP = Output.PosVS;
-    Output.PosU = mul(_89_mProj, localBinormal);
-    Output.PosR = mul(_89_mProj, localTangent);
+    Output.PosU = mul(_88_mProj, localBinormal);
+    Output.PosR = mul(_88_mProj, localTangent);
     Output.PosU /= Output.PosU.w.xxxx;
     Output.PosR /= Output.PosR.w.xxxx;
     Output.PosP /= Output.PosP.w.xxxx;
     Output.Color = Input.Color;
     Output.UV = Input.UV1;
-    Output.UV.y = _89_mUVInversed.x + (_89_mUVInversed.y * Input.UV1.y);
+    Output.UV.y = _88_mUVInversed.x + (_88_mUVInversed.y * Input.UV1.y);
     return Output;
 }
 

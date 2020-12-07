@@ -26,7 +26,7 @@ layout(set = 0, binding = 0, std140) uniform VS_ConstantBuffer
     layout(row_major) mat4 mProj;
     vec4 mUVInversed;
     vec4 mflipbookParameter;
-} _89;
+} _88;
 
 layout(location = 0) in vec3 Input_Pos;
 layout(location = 1) in vec4 Input_Color;
@@ -49,22 +49,24 @@ VS_Output _main(VS_Input Input)
     vec3 worldBinormal = cross(worldNormal, worldTangent);
     vec4 localBinormal = vec4(Input.Pos.x + worldBinormal.x, Input.Pos.y + worldBinormal.y, Input.Pos.z + worldBinormal.z, 1.0);
     vec4 localTangent = vec4(Input.Pos.x + worldTangent.x, Input.Pos.y + worldTangent.y, Input.Pos.z + worldTangent.z, 1.0);
-    vec4 cameraPos = pos4 * _89.mCamera;
+    localBinormal *= _88.mCamera;
+    localTangent *= _88.mCamera;
+    vec4 cameraPos = pos4 * _88.mCamera;
     cameraPos /= vec4(cameraPos.w);
     localBinormal /= vec4(localBinormal.w);
     localTangent /= vec4(localTangent.w);
     localBinormal = cameraPos + normalize(localBinormal - cameraPos);
     localTangent = cameraPos + normalize(localTangent - cameraPos);
-    Output.PosVS = cameraPos * _89.mProj;
+    Output.PosVS = cameraPos * _88.mProj;
     Output.PosP = Output.PosVS;
-    Output.PosU = localBinormal * _89.mProj;
-    Output.PosR = localTangent * _89.mProj;
+    Output.PosU = localBinormal * _88.mProj;
+    Output.PosR = localTangent * _88.mProj;
     Output.PosU /= vec4(Output.PosU.w);
     Output.PosR /= vec4(Output.PosR.w);
     Output.PosP /= vec4(Output.PosP.w);
     Output.Color = Input.Color;
     Output.UV = Input.UV1;
-    Output.UV.y = _89.mUVInversed.x + (_89.mUVInversed.y * Input.UV1.y);
+    Output.UV.y = _88.mUVInversed.x + (_88.mUVInversed.y * Input.UV1.y);
     return Output;
 }
 

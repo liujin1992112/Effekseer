@@ -41,6 +41,8 @@ VS_Output main(const VS_Input Input)
 
 	float4 localBinormal = {Input.Pos.x + worldBinormal.x, Input.Pos.y + worldBinormal.y, Input.Pos.z + worldBinormal.z, 1.0};
 	float4 localTangent = {Input.Pos.x + worldTangent.x, Input.Pos.y + worldTangent.y, Input.Pos.z + worldTangent.z, 1.0};
+	localBinormal = mul(mCamera, localBinormal);
+	localTangent = mul(mCamera, localTangent);
 
 	float4 cameraPos = mul(mCamera, pos4);
 	cameraPos = cameraPos / cameraPos.w;

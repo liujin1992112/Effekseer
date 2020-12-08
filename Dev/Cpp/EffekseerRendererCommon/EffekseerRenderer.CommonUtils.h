@@ -198,6 +198,7 @@ struct SimpleVertex
 	}
 };
 
+/*
 struct VertexDistortion
 {
 	VertexFloat3 Pos;
@@ -247,6 +248,7 @@ struct VertexDistortion
 	{
 	}
 };
+*/
 
 struct AdvancedLightingVertex
 {
@@ -362,6 +364,7 @@ struct AdvancedSimpleVertex
 	}
 };
 
+/*
 struct AdvancedVertexDistortion
 {
 	VertexFloat3 Pos;
@@ -421,6 +424,7 @@ struct AdvancedVertexDistortion
 	{
 	}
 };
+*/
 
 template <typename U>
 class ContainAdvancedData
@@ -443,12 +447,14 @@ public:
 	using Value = float;
 };
 
+/*
 template <>
 class ContainAdvancedData<VertexDistortion>
 {
 public:
 	using Value = float;
 };
+*/
 
 template <>
 class ContainAdvancedData<DynamicVertex>
@@ -627,16 +633,17 @@ void SetVertexAlphaThreshold(U& v, float value)
 static int32_t GetMaximumVertexSizeInAllTypes()
 {
 	size_t size = sizeof(DynamicVertexWithCustomData);
-	size = (std::max)(size, sizeof(VertexDistortion));
+	//size = (std::max)(size, sizeof(VertexDistortion));
 	size = (std::max)(size, sizeof(SimpleVertex));
 	size = (std::max)(size, sizeof(LightingVertex));
-	size = (std::max)(size, sizeof(AdvancedVertexDistortion));
+	//size = (std::max)(size, sizeof(AdvancedVertexDistortion));
 	size = (std::max)(size, sizeof(AdvancedSimpleVertex));
 	size = (std::max)(size, sizeof(AdvancedLightingVertex));
 
 	return static_cast<int32_t>(size);
 };
 
+/*
 template <typename T>
 inline bool IsDistortionVertex()
 {
@@ -654,6 +661,7 @@ inline bool IsDistortionVertex<AdvancedVertexDistortion>()
 {
 	return true;
 }
+*/
 
 template <typename T>
 inline bool IsDynamicVertex()
@@ -782,7 +790,7 @@ void ApplyViewOffset(::Effekseer::SIMD::Mat44f& mat,
 					 float distance);
 
 template <typename Vertex>
-inline void TransformStandardVertexes(Vertex& vertexes, int32_t count, const ::Effekseer::SIMD::Mat43f& mat)
+inline void TransformVertexes(Vertex& vertexes, int32_t count, const ::Effekseer::SIMD::Mat43f& mat)
 {
 	using namespace Effekseer::SIMD;
 
@@ -802,41 +810,6 @@ inline void TransformStandardVertexes(Vertex& vertexes, int32_t count, const ::E
 
 		Float4::Store3(&vertexes[i].Pos, oPos);
 	}
-}
-
-inline void TransformVertexes(StrideView<VertexDistortion>& v, int32_t count, const ::Effekseer::SIMD::Mat43f& mat)
-{
-	TransformStandardVertexes(v, count, mat);
-}
-
-inline void TransformVertexes(StrideView<SimpleVertex>& v, int32_t count, const ::Effekseer::SIMD::Mat43f& mat)
-{
-	TransformStandardVertexes(v, count, mat);
-}
-
-inline void TransformVertexes(StrideView<DynamicVertex>& v, int32_t count, const ::Effekseer::SIMD::Mat43f& mat)
-{
-	TransformStandardVertexes(v, count, mat);
-}
-
-inline void TransformVertexes(StrideView<LightingVertex>& v, int32_t count, const ::Effekseer::SIMD::Mat43f& mat)
-{
-	TransformStandardVertexes(v, count, mat);
-}
-
-inline void TransformVertexes(StrideView<AdvancedVertexDistortion>& v, int32_t count, const ::Effekseer::SIMD::Mat43f& mat)
-{
-	TransformStandardVertexes(v, count, mat);
-}
-
-inline void TransformVertexes(StrideView<AdvancedSimpleVertex>& v, int32_t count, const ::Effekseer::SIMD::Mat43f& mat)
-{
-	TransformStandardVertexes(v, count, mat);
-}
-
-inline void TransformVertexes(StrideView<AdvancedLightingVertex>& v, int32_t count, const ::Effekseer::SIMD::Mat43f& mat)
-{
-	TransformStandardVertexes(v, count, mat);
 }
 
 inline Effekseer::SIMD::Vec3f SafeNormalize(const Effekseer::SIMD::Vec3f& v)

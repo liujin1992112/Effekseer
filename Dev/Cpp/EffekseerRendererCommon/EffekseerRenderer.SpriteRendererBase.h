@@ -81,7 +81,7 @@ protected:
 		}
 		else if (collector.ShaderType == RendererShaderType::AdvancedBackDistortion)
 		{
-			Rendering_Internal<AdvancedVertexDistortion, FLIP_RGB_FLAG>(parameter, instanceParameter, userData, camera);
+			Rendering_Internal<AdvancedLightingVertex, FLIP_RGB_FLAG>(parameter, instanceParameter, userData, camera);
 		}
 		else if (collector.ShaderType == RendererShaderType::AdvancedUnlit)
 		{
@@ -93,7 +93,7 @@ protected:
 		}
 		else if (collector.ShaderType == RendererShaderType::BackDistortion)
 		{
-			Rendering_Internal<VertexDistortion, FLIP_RGB_FLAG>(parameter, instanceParameter, userData, camera);
+			Rendering_Internal<LightingVertex, FLIP_RGB_FLAG>(parameter, instanceParameter, userData, camera);
 		}
 		else
 		{
@@ -272,7 +272,7 @@ protected:
 		SetVertexBlendUVDistortionUV(verteies[3], instanceParameter.BlendUVDistortionUV.X + instanceParameter.BlendUVDistortionUV.Width, 0);
 		SetVertexBlendUVDistortionUV(verteies[3], instanceParameter.BlendUVDistortionUV.Y, 1);
 
-		if (IsLightingVertex<VERTEX>() || IsDynamicVertex<VERTEX>() || IsDistortionVertex<VERTEX>())
+		if (IsLightingVertex<VERTEX>() || IsDynamicVertex<VERTEX>())
 		{
 			StrideView<VERTEX> vs(verteies.pointerOrigin_, stride_, 4);
 			vs[0].SetUV2(0.0f, 1.0f);
@@ -318,7 +318,7 @@ protected:
 
 			TransformVertexes(verteies, 4, mat_rot);
 
-			if (IsDynamicVertex<VERTEX>() || IsLightingVertex<VERTEX>() || IsDistortionVertex<VERTEX>())
+			if (IsDynamicVertex<VERTEX>() || IsLightingVertex<VERTEX>())
 			{
 				if (!parameter.IsRightHand)
 				{
@@ -354,7 +354,7 @@ protected:
 				Pos = ::Effekseer::SIMD::Vec3f::Transform(Pos, mat);
 				::Effekseer::SIMD::Vec3f::Store(&verteies[i].Pos, Pos);
 
-				if (IsDynamicVertex<VERTEX>() || IsLightingVertex<VERTEX>() || IsDistortionVertex<VERTEX>())
+				if (IsDynamicVertex<VERTEX>() || IsLightingVertex<VERTEX>())
 				{
 					StrideView<VERTEX> vs(verteies.pointerOrigin_, stride_, 4);
 					auto tangentX = efkVector3D(mat.X.GetX(), mat.Y.GetX(), mat.Z.GetX());

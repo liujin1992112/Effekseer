@@ -436,7 +436,7 @@ bool RendererImplemented::Initialize(ID3D11Device* device,
 		{"TEXCOORD", 5, DXGI_FORMAT_R32_FLOAT, 0, sizeof(float) * 17, D3D11_INPUT_PER_VERTEX_DATA, 0},			// AlphaThreshold
 	};
 
-	D3D11_INPUT_ELEMENT_DESC decl_lighting_advanced[] = {
+	D3D11_INPUT_ELEMENT_DESC decl_normal_advanced[] = {
 		{"POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0},
 		{"NORMAL", 0, DXGI_FORMAT_R8G8B8A8_UNORM, 0, sizeof(float) * 3, D3D11_INPUT_PER_VERTEX_DATA, 0},
 		{"NORMAL", 1, DXGI_FORMAT_R8G8B8A8_UNORM, 0, sizeof(float) * 4, D3D11_INPUT_PER_VERTEX_DATA, 0},
@@ -450,7 +450,7 @@ bool RendererImplemented::Initialize(ID3D11Device* device,
 		{"TEXCOORD", 6, DXGI_FORMAT_R32_FLOAT, 0, sizeof(float) * 21, D3D11_INPUT_PER_VERTEX_DATA, 0},			// AlphaThreshold
 	};
 
-	D3D11_INPUT_ELEMENT_DESC decl_lighting[] = {
+	D3D11_INPUT_ELEMENT_DESC decl_normal[] = {
 		{"POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0},
 		{"NORMAL", 0, DXGI_FORMAT_R8G8B8A8_UNORM, 0, sizeof(float) * 3, D3D11_INPUT_PER_VERTEX_DATA, 0},
 		{"NORMAL", 1, DXGI_FORMAT_R8G8B8A8_UNORM, 0, sizeof(float) * 4, D3D11_INPUT_PER_VERTEX_DATA, 0},
@@ -489,8 +489,8 @@ bool RendererImplemented::Initialize(ID3D11Device* device,
 										Standard_Distortion_PS::g_main,
 										sizeof(Standard_Distortion_PS::g_main),
 										"StandardRenderer Distortion",
-										decl_lighting,
-										ARRAYSIZE(decl_lighting),
+										decl_normal,
+										ARRAYSIZE(decl_normal),
 										false);
 	if (shader_distortion_ == nullptr)
 		return false;
@@ -501,8 +501,8 @@ bool RendererImplemented::Initialize(ID3D11Device* device,
 										   Standard_Distortion_PS_Ad::g_main,
 										   sizeof(Standard_Distortion_PS_Ad::g_main),
 										   "StandardRenderer Distortion",
-										   decl_lighting_advanced,
-										   ARRAYSIZE(decl_lighting_advanced),
+										   decl_normal_advanced,
+										   ARRAYSIZE(decl_normal_advanced),
 										   false);
 	if (shader_ad_distortion_ == nullptr)
 		return false;
@@ -513,8 +513,8 @@ bool RendererImplemented::Initialize(ID3D11Device* device,
 								 Standard_Lighting_PS::g_main,
 								 sizeof(Standard_Lighting_PS::g_main),
 								 "StandardRenderer Lighting",
-								 decl_lighting,
-								 ARRAYSIZE(decl_lighting),
+								 decl_normal,
+								 ARRAYSIZE(decl_normal),
 								 false);
 	if (shader_lit_ == nullptr)
 		return false;
@@ -525,8 +525,8 @@ bool RendererImplemented::Initialize(ID3D11Device* device,
 									Standard_Lighting_PS_Ad::g_main,
 									sizeof(Standard_Lighting_PS_Ad::g_main),
 									"StandardRenderer Lighting",
-									decl_lighting_advanced,
-									ARRAYSIZE(decl_lighting_advanced),
+									decl_normal_advanced,
+									ARRAYSIZE(decl_normal_advanced),
 									false);
 	if (shader_ad_lit_ == nullptr)
 		return false;

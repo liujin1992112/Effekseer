@@ -119,7 +119,6 @@ int32_t RendererImplemented::GetIndexSpriteCount() const
 	int vsSize = EffekseerRenderer::GetMaximumVertexSizeInAllTypes() * m_squareMaxCount * 4;
 
 	size_t size = sizeof(EffekseerRenderer::SimpleVertex);
-	size = (std::min)(size, sizeof(VertexDistortion));
 	size = (std::min)(size, sizeof(EffekseerRenderer::DynamicVertex));
 	size = (std::min)(size, sizeof(EffekseerRenderer::LightingVertex));
 
@@ -390,7 +389,7 @@ bool RendererImplemented::Initialize()
 	vao_ad_unlit_ = VertexArray::Create(graphicsDevice_, shader_ad_unlit_, GetVertexBuffer(), GetIndexBuffer());
 
 	// Distortion
-	EffekseerRendererGL::ShaderAttribInfo sprite_attribs_lighting_ad[11] = {
+	EffekseerRendererGL::ShaderAttribInfo sprite_attribs_normal_ad[11] = {
 		{"Input_Pos", GL_FLOAT, 3, 0, false},
 		{"Input_Color", GL_UNSIGNED_BYTE, 4, 12, true},
 		{"Input_Normal", GL_UNSIGNED_BYTE, 4, 16, true},
@@ -405,7 +404,7 @@ bool RendererImplemented::Initialize()
 		{"Input_AlphaThreshold", GL_FLOAT, 1, sizeof(float) * 21, false},
 	};
 
-	EffekseerRendererGL::ShaderAttribInfo sprite_attribs_lighting[6] = {
+	EffekseerRendererGL::ShaderAttribInfo sprite_attribs_normal[6] = {
 		{"Input_Pos", GL_FLOAT, 3, 0, false},
 		{"Input_Color", GL_UNSIGNED_BYTE, 4, 12, true},
 		{"Input_Normal", GL_UNSIGNED_BYTE, 4, 16, true},
@@ -414,9 +413,9 @@ bool RendererImplemented::Initialize()
 		{"Input_UV2", GL_FLOAT, 2, 32, false},
 	};
 
-	shader_ad_distortion_->GetAttribIdList(11, sprite_attribs_lighting_ad);
+	shader_ad_distortion_->GetAttribIdList(11, sprite_attribs_normal_ad);
 
-	shader_distortion_->GetAttribIdList(6, sprite_attribs_lighting);
+	shader_distortion_->GetAttribIdList(6, sprite_attribs_normal);
 
 	for (auto& shader : {shader_ad_distortion_, shader_distortion_})
 	{
@@ -463,9 +462,9 @@ bool RendererImplemented::Initialize()
 
 	// Lit
 
-	shader_ad_lit_->GetAttribIdList(11, sprite_attribs_lighting_ad);
+	shader_ad_lit_->GetAttribIdList(11, sprite_attribs_normal_ad);
 
-	shader_lit_->GetAttribIdList(6, sprite_attribs_lighting);
+	shader_lit_->GetAttribIdList(6, sprite_attribs_normal);
 
 	for (auto shader : {shader_ad_lit_, shader_lit_})
 	{

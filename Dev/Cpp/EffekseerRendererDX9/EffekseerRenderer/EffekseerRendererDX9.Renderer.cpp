@@ -344,7 +344,7 @@ bool RendererImplemented::Initialize(LPDIRECT3DDEVICE9 device)
 		{0, 16, D3DDECLTYPE_FLOAT2, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_TEXCOORD, 2},
 		D3DDECL_END()};
 
-	D3DVERTEXELEMENT9 decl_lighting[] = {
+	D3DVERTEXELEMENT9 decl_normal[] = {
 		{0, 0, D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_TEXCOORD, 0},
 		{0, 12, D3DDECLTYPE_D3DCOLOR, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_TEXCOORD, 1},
 		{0, 16, D3DDECLTYPE_D3DCOLOR, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_TEXCOORD, 2},
@@ -353,7 +353,7 @@ bool RendererImplemented::Initialize(LPDIRECT3DDEVICE9 device)
 		{0, 32, D3DDECLTYPE_FLOAT2, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_TEXCOORD, 5},
 		D3DDECL_END()};
 
-	D3DVERTEXELEMENT9 decl_lighting_ad[] = {
+	D3DVERTEXELEMENT9 decl_normal_ad[] = {
 		{0, 0, D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_TEXCOORD, 0},
 		{0, 12, D3DDECLTYPE_D3DCOLOR, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_TEXCOORD, 1},
 		{0, 16, D3DDECLTYPE_D3DCOLOR, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_TEXCOORD, 2},
@@ -395,7 +395,7 @@ bool RendererImplemented::Initialize(LPDIRECT3DDEVICE9 device)
 										   Standard_Distortion_PS_Ad::g_ps30_main,
 										   sizeof(Standard_Distortion_PS_Ad::g_ps30_main),
 										   "StandardRenderer Distortion",
-										   decl_lighting_ad,
+										   decl_normal_ad,
 										   false);
 	if (shader_ad_distortion_ == nullptr)
 		return false;
@@ -406,7 +406,7 @@ bool RendererImplemented::Initialize(LPDIRECT3DDEVICE9 device)
 										Standard_Distortion_PS::g_ps30_main,
 										sizeof(Standard_Distortion_PS::g_ps30_main),
 										"StandardRenderer Distortion",
-										decl_lighting,
+										decl_normal,
 										false);
 	if (shader_distortion_ == nullptr)
 		return false;
@@ -417,7 +417,7 @@ bool RendererImplemented::Initialize(LPDIRECT3DDEVICE9 device)
 									Standard_Lighting_PS_Ad::g_ps30_main,
 									sizeof(Standard_Lighting_PS_Ad::g_ps30_main),
 									"StandardRenderer Lighting",
-									decl_lighting_ad,
+									decl_normal_ad,
 									false);
 	if (shader_ad_lit_ == nullptr)
 		return false;
@@ -428,7 +428,7 @@ bool RendererImplemented::Initialize(LPDIRECT3DDEVICE9 device)
 								 Standard_Lighting_PS::g_ps30_main,
 								 sizeof(Standard_Lighting_PS::g_ps30_main),
 								 "StandardRenderer Lighting",
-								 decl_lighting,
+								 decl_normal,
 								 false);
 	if (shader_lit_ == nullptr)
 		return false;

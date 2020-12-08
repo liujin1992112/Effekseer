@@ -365,26 +365,26 @@ bool RendererImplemented::Initialize(Backend::GraphicsDeviceRef graphicsDevice,
 	layouts_ad.push_back(VertexLayout{LLGI::VertexLayoutFormat::R32_FLOAT, "TEXCOORD", 6});			 // FlipbookIndexAndNextRate
 	layouts_ad.push_back(VertexLayout{LLGI::VertexLayoutFormat::R32_FLOAT, "TEXCOORD", 7});			 // AlphaThreshold
 
-	std::vector<VertexLayout> layouts_lighting;
-	layouts_lighting.push_back(VertexLayout{LLGI::VertexLayoutFormat::R32G32B32_FLOAT, "TEXCOORD", 0});
-	layouts_lighting.push_back(VertexLayout{LLGI::VertexLayoutFormat::R8G8B8A8_UNORM, "TEXCOORD", 1});
-	layouts_lighting.push_back(VertexLayout{LLGI::VertexLayoutFormat::R8G8B8A8_UNORM, "TEXCOORD", 2});
-	layouts_lighting.push_back(VertexLayout{LLGI::VertexLayoutFormat::R8G8B8A8_UNORM, "TEXCOORD", 3});
-	layouts_lighting.push_back(VertexLayout{LLGI::VertexLayoutFormat::R32G32_FLOAT, "TEXCOORD", 4});
-	layouts_lighting.push_back(VertexLayout{LLGI::VertexLayoutFormat::R32G32_FLOAT, "TEXCOORD", 5});
+	std::vector<VertexLayout> layouts_normal;
+	layouts_normal.push_back(VertexLayout{LLGI::VertexLayoutFormat::R32G32B32_FLOAT, "TEXCOORD", 0});
+	layouts_normal.push_back(VertexLayout{LLGI::VertexLayoutFormat::R8G8B8A8_UNORM, "TEXCOORD", 1});
+	layouts_normal.push_back(VertexLayout{LLGI::VertexLayoutFormat::R8G8B8A8_UNORM, "TEXCOORD", 2});
+	layouts_normal.push_back(VertexLayout{LLGI::VertexLayoutFormat::R8G8B8A8_UNORM, "TEXCOORD", 3});
+	layouts_normal.push_back(VertexLayout{LLGI::VertexLayoutFormat::R32G32_FLOAT, "TEXCOORD", 4});
+	layouts_normal.push_back(VertexLayout{LLGI::VertexLayoutFormat::R32G32_FLOAT, "TEXCOORD", 5});
 
-	std::vector<VertexLayout> layouts_lighting_ad;
-	layouts_lighting_ad.push_back(VertexLayout{LLGI::VertexLayoutFormat::R32G32B32_FLOAT, "TEXCOORD", 0});
-	layouts_lighting_ad.push_back(VertexLayout{LLGI::VertexLayoutFormat::R8G8B8A8_UNORM, "TEXCOORD", 1});
-	layouts_lighting_ad.push_back(VertexLayout{LLGI::VertexLayoutFormat::R8G8B8A8_UNORM, "TEXCOORD", 2});
-	layouts_lighting_ad.push_back(VertexLayout{LLGI::VertexLayoutFormat::R8G8B8A8_UNORM, "TEXCOORD", 3});
-	layouts_lighting_ad.push_back(VertexLayout{LLGI::VertexLayoutFormat::R32G32_FLOAT, "TEXCOORD", 4});
-	layouts_lighting_ad.push_back(VertexLayout{LLGI::VertexLayoutFormat::R32G32_FLOAT, "TEXCOORD", 5});
-	layouts_lighting_ad.push_back(VertexLayout{LLGI::VertexLayoutFormat::R32G32B32A32_FLOAT, "TEXCOORD", 6}); // AlphaTextureUV + UVDistortionTextureUV
-	layouts_lighting_ad.push_back(VertexLayout{LLGI::VertexLayoutFormat::R32G32_FLOAT, "TEXCOORD", 7});		  // BlendUV
-	layouts_lighting_ad.push_back(VertexLayout{LLGI::VertexLayoutFormat::R32G32B32A32_FLOAT, "TEXCOORD", 8}); // BlendAlphaUV + BlendUVDistortionUV
-	layouts_lighting_ad.push_back(VertexLayout{LLGI::VertexLayoutFormat::R32_FLOAT, "TEXCOORD", 9});		  // FlipbookIndexAndNextRate
-	layouts_lighting_ad.push_back(VertexLayout{LLGI::VertexLayoutFormat::R32_FLOAT, "TEXCOORD", 10});		  // AlphaThreshold
+	std::vector<VertexLayout> layouts_normal_ad;
+	layouts_normal_ad.push_back(VertexLayout{LLGI::VertexLayoutFormat::R32G32B32_FLOAT, "TEXCOORD", 0});
+	layouts_normal_ad.push_back(VertexLayout{LLGI::VertexLayoutFormat::R8G8B8A8_UNORM, "TEXCOORD", 1});
+	layouts_normal_ad.push_back(VertexLayout{LLGI::VertexLayoutFormat::R8G8B8A8_UNORM, "TEXCOORD", 2});
+	layouts_normal_ad.push_back(VertexLayout{LLGI::VertexLayoutFormat::R8G8B8A8_UNORM, "TEXCOORD", 3});
+	layouts_normal_ad.push_back(VertexLayout{LLGI::VertexLayoutFormat::R32G32_FLOAT, "TEXCOORD", 4});
+	layouts_normal_ad.push_back(VertexLayout{LLGI::VertexLayoutFormat::R32G32_FLOAT, "TEXCOORD", 5});
+	layouts_normal_ad.push_back(VertexLayout{LLGI::VertexLayoutFormat::R32G32B32A32_FLOAT, "TEXCOORD", 6}); // AlphaTextureUV + UVDistortionTextureUV
+	layouts_normal_ad.push_back(VertexLayout{LLGI::VertexLayoutFormat::R32G32_FLOAT, "TEXCOORD", 7});		  // BlendUV
+	layouts_normal_ad.push_back(VertexLayout{LLGI::VertexLayoutFormat::R32G32B32A32_FLOAT, "TEXCOORD", 8}); // BlendAlphaUV + BlendUVDistortionUV
+	layouts_normal_ad.push_back(VertexLayout{LLGI::VertexLayoutFormat::R32_FLOAT, "TEXCOORD", 9});		  // FlipbookIndexAndNextRate
+	layouts_normal_ad.push_back(VertexLayout{LLGI::VertexLayoutFormat::R32_FLOAT, "TEXCOORD", 10});		  // AlphaThreshold
 
 	shader_unlit_ = Shader::Create(graphicsDevice_.Get(),
 								   fixedShader_.SpriteUnlit_VS.data(),
@@ -403,7 +403,7 @@ bool RendererImplemented::Initialize(Backend::GraphicsDeviceRef graphicsDevice,
 										fixedShader_.SpriteDistortion_PS.data(),
 										(int32_t)fixedShader_.SpriteDistortion_PS.size(),
 										"StandardRenderer Distortion",
-										layouts_lighting,
+										layouts_normal,
 										false);
 	if (shader_distortion_ == nullptr)
 		return false;
@@ -425,7 +425,7 @@ bool RendererImplemented::Initialize(Backend::GraphicsDeviceRef graphicsDevice,
 										   fixedShader_.AdvancedSpriteDistortion_PS.data(),
 										   (int32_t)fixedShader_.AdvancedSpriteDistortion_PS.size(),
 										   "StandardRenderer Distortion",
-										   layouts_lighting_ad,
+										   layouts_normal_ad,
 										   false);
 	if (shader_ad_distortion_ == nullptr)
 		return false;
@@ -436,7 +436,7 @@ bool RendererImplemented::Initialize(Backend::GraphicsDeviceRef graphicsDevice,
 								 fixedShader_.SpriteLit_PS.data(),
 								 (int32_t)fixedShader_.SpriteLit_PS.size(),
 								 "StandardRenderer Lighting",
-								 layouts_lighting,
+								 layouts_normal,
 								 false);
 
 	shader_ad_lit_ = Shader::Create(graphicsDevice_.Get(),
@@ -445,7 +445,7 @@ bool RendererImplemented::Initialize(Backend::GraphicsDeviceRef graphicsDevice,
 									fixedShader_.AdvancedSpriteLit_PS.data(),
 									(int32_t)fixedShader_.AdvancedSpriteLit_PS.size(),
 									"StandardRenderer Lighting",
-									layouts_lighting_ad,
+									layouts_normal_ad,
 									false);
 
 	shader_unlit_->SetVertexConstantBufferSize(sizeof(EffekseerRenderer::StandardRendererVertexBuffer));

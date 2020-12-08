@@ -737,7 +737,7 @@ protected:
 				vm.Pos = ToStruct(pos);
 				vr.Pos = ToStruct(-R * vr.Pos.X + pos);
 
-				if (IsDynamicVertex<VERTEX>() || IsLightingVertex<VERTEX>() || IsDistortionVertex<VERTEX>())
+				if (IsDynamicVertex<VERTEX>() || IsLightingVertex<VERTEX>())
 				{
 					::Effekseer::SIMD::Vec3f tangent = SafeNormalize(Effekseer::SIMD::Vec3f(vl.Pos - vr.Pos));
 					Effekseer::SIMD::Vec3f normal = SafeNormalize(Effekseer::SIMD::Vec3f::Cross(tangent, axis));
@@ -878,7 +878,7 @@ protected:
 		}
 		else if (collector.ShaderType == RendererShaderType::AdvancedBackDistortion)
 		{
-			Rendering_Internal<AdvancedVertexDistortion, FLIP_RGB_FLAG>(parameter, instanceParameter, userData, camera);
+			Rendering_Internal<AdvancedLightingVertex, FLIP_RGB_FLAG>(parameter, instanceParameter, userData, camera);
 		}
 		else if (collector.ShaderType == RendererShaderType::AdvancedUnlit)
 		{
@@ -890,7 +890,7 @@ protected:
 		}
 		else if (collector.ShaderType == RendererShaderType::BackDistortion)
 		{
-			Rendering_Internal<VertexDistortion, FLIP_RGB_FLAG>(parameter, instanceParameter, userData, camera);
+			Rendering_Internal<LightingVertex, FLIP_RGB_FLAG>(parameter, instanceParameter, userData, camera);
 		}
 		else
 		{

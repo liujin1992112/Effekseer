@@ -627,7 +627,7 @@ protected:
 		AssignUVs<VERTEX, 6>(parameter, verteies);
 
 		// Apply distortion
-		if (IsDynamicVertex<VERTEX>() || IsLightingVertex<VERTEX>() || IsDistortionVertex<VERTEX>())
+		if (IsDynamicVertex<VERTEX>() || IsLightingVertex<VERTEX>())
 		{
 			StrideView<VERTEX> vs_(m_ringBufferData, stride_, vertexCount_);
 			Effekseer::SIMD::Vec3f axisBefore;
@@ -782,7 +782,7 @@ protected:
 		}
 		else if (collector.ShaderType == RendererShaderType::AdvancedBackDistortion)
 		{
-			Rendering_Internal<AdvancedVertexDistortion, FLIP_RGB_FLAG>(parameter, instanceParameter, userData, camera);
+			Rendering_Internal<AdvancedLightingVertex, FLIP_RGB_FLAG>(parameter, instanceParameter, userData, camera);
 		}
 		else if (collector.ShaderType == RendererShaderType::AdvancedUnlit)
 		{
@@ -794,7 +794,7 @@ protected:
 		}
 		else if (collector.ShaderType == RendererShaderType::BackDistortion)
 		{
-			Rendering_Internal<VertexDistortion, FLIP_RGB_FLAG>(parameter, instanceParameter, userData, camera);
+			Rendering_Internal<LightingVertex, FLIP_RGB_FLAG>(parameter, instanceParameter, userData, camera);
 		}
 		else
 		{

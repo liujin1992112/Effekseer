@@ -108,7 +108,7 @@ protected:
 		}
 		else if (collector.ShaderType == RendererShaderType::AdvancedBackDistortion)
 		{
-			Rendering_Internal<AdvancedVertexDistortion, FLIP_RGB_FLAG>(parameter, instanceParameter, userData, camera);
+			Rendering_Internal<AdvancedLightingVertex, FLIP_RGB_FLAG>(parameter, instanceParameter, userData, camera);
 		}
 		else if (collector.ShaderType == RendererShaderType::AdvancedUnlit)
 		{
@@ -120,7 +120,7 @@ protected:
 		}
 		else if (collector.ShaderType == RendererShaderType::BackDistortion)
 		{
-			Rendering_Internal<VertexDistortion, FLIP_RGB_FLAG>(parameter, instanceParameter, userData, camera);
+			Rendering_Internal<LightingVertex, FLIP_RGB_FLAG>(parameter, instanceParameter, userData, camera);
 		}
 		else
 		{
@@ -562,7 +562,7 @@ protected:
 				v[vi].SetAlphaThreshold(instanceParameter.AlphaThreshold);
 			}
 
-			if (IsDynamicVertex<VERTEX>() || IsLightingVertex<VERTEX>() || IsDistortionVertex<VERTEX>())
+			if (IsDynamicVertex<VERTEX>() || IsLightingVertex<VERTEX>())
 			{
 				StrideView<VERTEX> vs(&verteies[i], stride_, 8);
 
